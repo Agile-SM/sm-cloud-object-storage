@@ -5,14 +5,6 @@ const Duplex = require('stream').Duplex;
 class CloudObjectStorage {
 
     constructor(options) {
-        let config = {
-            apiKeyId: options.apiKeyId,
-            endpoint: 's3.eu-geo.objectstorage.softlayer.net',
-            ibmAuthEndpoint: 'https://iam.ng.bluemix.net/oidc/token',
-            serviceInstanceId: 'crn:v1:bluemix:public:cloud-object-storage:global:a/66656cc0056cb586cab8630ff158cab0:6a0ec026-289d-45df-a92b-262d8762d297::',
-            region: "eu-geo" // igual también viene en options
-        }
-
         this.cos = new AWS.S3(config);
     }
 
@@ -35,28 +27,28 @@ class CloudObjectStorage {
     async downloadFile(file, bucket) {
         return await new Promise((resolve, reject) => {
             this.cos.getObject({Bucket: bucket, Key: file}, function (error, result) {
-                if (error !== null) {
-                    reject(error);
-                } else {
-                    resolve(result.Body);
-                }
-            })
+            if (error !== null) {
+                reject(error);
+            } else {
+                resolve(result.Body);
+            }
         })
+    })
     }
 
     async downloadFileStream(file, bucket) {
         return new Promise((resolve, reject) => {
             this.cos.getObject({Bucket: bucket, Key: file}, function (error, data) {
-                if (error !== null) {
-                    reject(error);
-                } else {
-                    let stream = new Duplex();
-                    stream.push(data.Body);
-                    stream.push(null);
-                    resolve(stream);
-                }
-            })
+            if (error !== null) {
+                reject(error);
+            } else {
+                let stream = new Duplex();
+                stream.push(data.Body);
+                stream.push(null);
+                resolve(stream);
+            }
         })
+    })
     }
 
     streamingFile(item, bucket, req, res, next) {

@@ -1,10 +1,14 @@
 {
-  "name": "sm-cloud-object-storage",
-  "version": "1.0.0",
+  "name": "sm-cos",
+  "version": "1.0.1",
   "description": "SM cloud object storage manage pkg",
   "main": "index.js",
   "author": "S&M",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Agile-SM/sm-cloud-object-storage"
+  },
   "dependencies": {
     "fs": "0.0.1-security",
     "ibm-cos-sdk": "^1.1.4",
