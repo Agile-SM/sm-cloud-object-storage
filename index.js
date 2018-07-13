@@ -5,7 +5,7 @@ const Duplex = require('stream').Duplex;
 class CloudObjectStorage {
 
     constructor(options) {
-        this.cos = new AWS.S3(config);
+        this.cos = new AWS.S3(options);
     }
 
     uploadFile(file, bucket, file_path) {
