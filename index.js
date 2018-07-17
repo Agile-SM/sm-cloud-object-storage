@@ -25,7 +25,7 @@ class CloudObjectStorage {
     }
 
     async deleteFile(file, bucket) {
-        return await new Promise(function(resolve, reject) {
+        return await new Promise((resolve, reject) => {
             this.cos.deleteObject({Bucket: bucket, Key: file}, function(error, data) {
                 if (error !== null) {
                     reject(error);
