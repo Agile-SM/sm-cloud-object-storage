@@ -16,6 +16,10 @@ class CloudObjectStorage {
         }).promise();
     }
 
+    uploadFileParams(params) {
+        return this.cos.putObject(params).promise();
+    }
+
     uploadFileFromTmp(file, bucket) {
         return this.cos.putObject({
             Bucket: bucket,
